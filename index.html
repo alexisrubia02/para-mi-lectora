@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para mi hermosa lectora</title>
+  <!-- Google Fonts para tipografías elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #0f0c1b;
+      --card-bg: rgba(26, 20, 35, 0.88);
+      --primary: #9b4b68;
+      --primary-hover: #b85b7c;
+      --text: #f5ebd9;
+      --text-muted: #d1c2b0;
+      --accent: #d4af37;
+      --border-gold: rgba(212, 175, 55, 0.4);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    /* Fondo de la Etapa 3 en pantalla completa */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background-image: linear-gradient(to bottom, rgba(15, 12, 27, 0.75), rgba(15, 12, 27, 0.85)), url('./etapa3.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.8s ease-in-out, visibility 1.8s;
+    }
+
+    .bg-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Contenedor general de las etapas */
+    .step {
+      position: absolute;
+      width: 100%;
+      max-width: 650px;
+      padding: 2.5rem 2rem;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(212, 175, 55, 0.15);
+      border: 1.5px solid var(--border-gold);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(30px) scale(0.97);
+      transition: opacity 1.5s ease, transform 1.5s ease, visibility 1.5s;
+    }
+
+    .step.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      position: relative;
+    }
+
+    /* Ajuste especial de tamaño para la Etapa 1 */
+    #step-1 {
+      max-width: 800px;
+      padding: 2.5rem 2.5rem;
+    }
+
+    img.content-img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    /* Imagen más grande específicamente en la Etapa 1 */
+    #step-1 img.content-img {
+      max-height: 520px;
+    }
+
+    h1, h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.7rem;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      color: var(--accent);
+      text-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Imagen interna en la Etapa 3 como detalle visual extra */
+    .etapa3-card-img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      border: 1px solid var(--border-gold);
+    }
+
+    /* Botones elegantes */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1.8rem;
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--primary), #75334a);
+      color: #fff;
+      border: 1px solid var(--accent);
+      padding: 0.85rem 2rem;
+      border-radius: 30px;
+      font-size: 1.05rem;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(155, 75, 104, 0.4);
+      transition: all 0.4s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, var(--primary-hover), #9b4b68);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    button.secondary {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid rgba(209, 194, 176, 0.4);
+      box-shadow: none;
+    }
+
+    button.secondary:hover {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .spotify-container {
+      margin-top: 1.2rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo dinámico fijado para la Etapa 3 -->
+  <div id="bg-overlay" class="bg-overlay"></div>
+
+  <!-- ETAPA 1 -->
+  <div class="step active" id="step-1">
+    <img src="./etapa1.png" alt="El Arte de Leer" class="content-img">
+    <div class="btn-container">
+      <button onclick="goToStep(2)">Avanzar</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="step" id="step-2">
+    <h1>Feliz día a mi hermosa lectora</h1>
+    <img src="./etapa2.png" alt="Feliz día del lector" class="content-img">
+    <div class="btn-container">
+      <button class="secondary" onclick="goToStep(1)">Anterior</button>
+      <button onclick="goToStep(3)">Avanzar</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="step" id="step-3">
+    <h2>Espero que disfrutes tu próxima aventura hermosa</h2>
+    
+    <!-- Imagen destacada dentro de la tarjeta para la etapa 3 -->
+    <img src="./etapa3.jpg" alt="Próxima Aventura" class="etapa3-card-img">
+
+    <!-- Reproductor incrustado de Spotify -->
+    <div class="spotify-container">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3m8SIUxxSe8kTCPevyrXGK?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+    <div class="btn-container">
+      <button class="secondary" onclick="goToStep(2)">Anterior</button>
+      <button class="secondary" onclick="goToStep(1)">Inicio</button>
+    </div>
+  </div>
+
+  <script>
+    function goToStep(stepNumber) {
+      // Ocultar todas las etapas
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+
+      // Activar la etapa actual
+      const nextStep = document.getElementById(`step-${stepNumber}`);
+      nextStep.classList.add('active');
+
+      // Mostrar u ocultar el fondo de pantalla en la Etapa 3
+      const bgOverlay = document.getElementById('bg-overlay');
+      if (stepNumber === 3) {
+        bgOverlay.classList.add('active');
+      } else {
+        bgOverlay.classList.remove('active');
+      }
+    }
+  </script>
+
+</body>
+</html>
