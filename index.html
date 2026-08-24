@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para mi hermosa lectora</title>
+  <style>
+    :root {
+      --bg-color: #1a1625;
+      --card-bg: rgba(255, 255, 255, 0.93);
+      --primary: #8b4a62;
+      --primary-hover: #6e384c;
+      --text: #2d2424;
+      --accent: #d4af37;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+
+    /* Fondo principal de la página */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      transition: opacity 1.5s ease-in-out;
+      opacity: 0;
+    }
+
+    .bg-overlay.step3-bg {
+      background-image: linear-gradient(rgba(15, 12, 20, 0.65), rgba(15, 12, 20, 0.65)), url('./etapa3.jpg');
+      opacity: 1;
+    }
+
+    /* Estructura de las etapas con transición lenta */
+    .step {
+      position: absolute;
+      width: 100%;
+      max-width: 550px;
+      padding: 2.5rem 2rem;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(30px) scale(0.98);
+      transition: opacity 1.5s ease, transform 1.5s ease, visibility 1.5s;
+    }
+
+    .step.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      position: relative;
+    }
+
+    img.content-img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    h1, h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
+      color: #3b232e;
+      font-weight: normal;
+    }
+
+    /* Botones */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1.8rem;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(139, 74, 98, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(139, 74, 98, 0.4);
+    }
+
+    button.secondary {
+      background-color: #e5d8d8;
+      color: #524347;
+      box-shadow: none;
+    }
+
+    button.secondary:hover {
+      background-color: #d6c4c4;
+      transform: translateY(-2px);
+    }
+
+    .spotify-container {
+      margin-top: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="bg-overlay" class="bg-overlay"></div>
+
+  <!-- ETAPA 1 -->
+  <div class="step active" id="step-1">
+    <img src="./etapa1.png" alt="El Arte de Leer" class="content-img">
+    <div class="btn-container">
+      <button onclick="goToStep(2)">Avanzar</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 2 -->
+  <div class="step" id="step-2">
+    <h1>Feliz día a mi hermosa lectora</h1>
+    <img src="./etapa2.png" alt="Feliz día del lector" class="content-img">
+    <div class="btn-container">
+      <button class="secondary" onclick="goToStep(1)">Anterior</button>
+      <button onclick="goToStep(3)">Avanzar</button>
+    </div>
+  </div>
+
+  <!-- ETAPA 3 -->
+  <div class="step" id="step-3">
+    <h2>Espero que disfrutes tu próxima aventura hermosa</h2>
+    
+    <!-- Reproductor incrustado de Spotify -->
+    <div class="spotify-container">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3m8SIUxxSe8kTCPevyrXGK?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+
+    <div class="btn-container">
+      <button class="secondary" onclick="goToStep(2)">Volver a la anterior</button>
+      <button class="secondary" onclick="goToStep(1)">Volver al inicio</button>
+    </div>
+  </div>
+
+  <script>
+    function goToStep(stepNumber) {
+      // Ocultar todas las etapas
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+
+      // Mostrar la etapa seleccionada
+      const nextStep = document.getElementById(`step-${stepNumber}`);
+      nextStep.classList.add('active');
+
+      // Control del fondo de pantalla en la etapa 3
+      const bgOverlay = document.getElementById('bg-overlay');
+      if (stepNumber === 3) {
+        bgOverlay.classList.add('step3-bg');
+      } else {
+        bgOverlay.classList.remove('step3-bg');
+      }
+    }
+  </script>
+
+</body>
+</html>
